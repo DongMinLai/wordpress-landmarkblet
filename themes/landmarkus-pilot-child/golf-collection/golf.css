@@ -1,0 +1,205 @@
+/* Golf collection presentation is confined to the owned PV-02 page. */
+.lm-golf-collection {
+    --golf-ink: #171b18;
+    --golf-muted: #505a52;
+    --golf-green: #15291e;
+    --golf-line: #dce2d8;
+    --golf-field: #f1f4ed;
+    color: var(--golf-ink);
+    background: #fff;
+}
+.lm-golf-collection :is(h1,h2,h3,p,figure) { margin: 0; }
+.lm-golf-collection a { color: inherit; text-underline-offset: 4px; }
+.lm-golf-collection a:focus-visible, .lm-golf-collection summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 5px;
+}
+.lm-golf-wrap {
+    width: min(100% - clamp(32px, 9vw, 144px), 1240px);
+    margin-inline: auto;
+}
+.lm-golf-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-height: clamp(430px, 43vw, 665px);
+    color: #fff;
+    background: var(--golf-green);
+    overflow: hidden;
+}
+.lm-golf-hero-image, .lm-golf-hero::after {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.lm-golf-hero-image { object-fit: cover; object-position: 68% 50%; z-index: -2; }
+.lm-golf-hero::after {
+    content: "";
+    background: linear-gradient(90deg, #0b1c14df, #0b1c1465 42%, transparent 68%);
+    z-index: -1;
+}
+.lm-golf-hero-copy { padding-block: 48px; }
+.lm-golf-collection .lm-golf-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.lm-golf-hero h1 {
+    margin: 16px 0 14px;
+    font-size: clamp(45px, 6.4vw, 102px);
+    line-height: .96;
+    letter-spacing: -.04em;
+    color: inherit;
+}
+.lm-golf-hero .lm-golf-deck { font-size: clamp(17px, 1.7vw, 24px); }
+.lm-golf-collection .lm-golf-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 46px;
+    margin-top: 18px;
+    padding: 10px 18px;
+    background: #fff;
+    color: var(--golf-green);
+    font-weight: 600;
+    text-decoration: none;
+}
+.lm-golf-collection .lm-golf-button:focus-visible { outline-color: #fff; }
+.lm-golf-collection h2 {
+    margin-top: 9px;
+    font-size: clamp(30px, 3.7vw, 57px);
+    line-height: 1.07;
+    letter-spacing: -.035em;
+    color: inherit;
+}
+.lm-golf-hero .lm-golf-order-note {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.lm-golf-lineup { padding-block: clamp(28px, 5vw, 60px); }
+.lm-golf-finish { padding-bottom: clamp(48px, 7vw, 105px); }
+.lm-golf-style-band { scroll-margin-top: 24px; }
+.lm-golf-disclosure { border-block: 1px solid var(--golf-line); }
+.lm-golf-disclosure > summary {
+    padding-block: 13px;
+    min-height: 44px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.lm-golf-disclosure > summary h2 {
+    display: inline;
+    margin: 0 0 0 6px;
+    font-size: clamp(19px, 2vw, 26px);
+}
+.lm-golf-featured[open] { padding-bottom: 24px; }
+.lm-golf-featured .lm-golf-products { margin-top: clamp(14px, 3vw, 36px); }
+.lm-golf-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 15px 28px;
+    margin-bottom: clamp(24px, 4vw, 47px);
+}
+.lm-golf-section-head > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; flex: none; }
+.lm-golf-products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 52px) clamp(15px, 2.4vw, 35px); }
+.lm-golf-product {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--golf-line);
+}
+.lm-golf-product-image { display: block; overflow: hidden; }
+.lm-golf-product-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.16;
+    object-fit: contain;
+    background: transparent;
+}
+.lm-golf-product-info { display: flex; flex: 1; flex-direction: column; padding: 14px 0 18px; }
+.lm-golf-product-info h3 { margin-bottom: 8px; font-size: clamp(15px, 1.37vw, 19px); line-height: 1.35; letter-spacing: -.015em; }
+.lm-golf-product-info h3 a { text-decoration: none; }
+.lm-golf-product-info h3 a:hover { text-decoration: underline; }
+.lm-golf-collection .lm-golf-sku { margin-bottom: 4px; font-size: 12px; color: var(--golf-muted); letter-spacing: .055em; }
+.lm-golf-price-link, .lm-golf-collection .lm-golf-price { display: inline-flex; align-items: center; align-self: flex-start; gap: 4px; min-height: 44px; margin-top: auto; font-size: 14px; }
+.lm-golf-collection :is(.lm-golf-section-head > a, .lm-golf-price-link, .lm-golf-price-note a) { text-decoration: underline; }
+.lm-golf-price { font-weight: 600; }
+.lm-golf-price > span { color: var(--golf-muted); }
+.lm-golf-collection .lm-golf-price-note { margin-top: 18px; font-size: 14px; color: var(--golf-muted); }
+.lm-golf-style-band { background: var(--golf-field); padding-block: clamp(28px, 5vw, 72px); }
+.lm-golf-looks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 38px); }
+.lm-golf-looks article { display: flex; flex-direction: column; min-width: 0; }
+.lm-golf-looks img { display: block; width: 100%; aspect-ratio: 1.13; object-fit: cover; object-position: 50% 52%; }
+.lm-golf-look-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--golf-line);
+    padding: 18px 0 21px;
+}
+.lm-golf-look-copy h3 { margin: 6px 0; font-size: clamp(19px, 2.1vw, 31px); line-height: 1.12; letter-spacing: -.03em; }
+.lm-golf-look-copy a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; text-decoration: underline; }
+.lm-golf-look-copy p:not(.lm-golf-eyebrow) { margin-bottom: 9px; color: var(--golf-muted); }
+.lm-golf-detail { margin-top: 24px; }
+.lm-golf-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 26px);
+    padding-block: 8px 20px;
+}
+.lm-golf-detail-grid img { display: block; width: 100%; aspect-ratio: 1.15; object-fit: contain; background: #fff; }
+.lm-golf-detail-grid figcaption { padding-top: 8px; font-weight: 500; }
+.lm-golf-scorecard {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    gap: 22px 44px;
+    padding: clamp(24px, 4vw, 56px);
+    background: var(--golf-green);
+    color: #fff;
+}
+.lm-golf-scorecard h2 { font-size: clamp(26px, 3vw, 44px); }
+.lm-golf-score-rows p { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: center; border-top: 1px solid #ffffff55; padding: 13px 0; }
+.lm-golf-score-rows p:last-child { border-bottom: 1px solid #ffffff55; }
+.lm-golf-score-rows span { font-size: 12px; }
+.lm-golf-score-rows strong { font-weight: 500; }
+.lm-golf-score-rows a { text-decoration: underline; }
+.lm-golf-collection .lm-golf-guide-link { margin-top: 14px; }
+.lm-golf-guide-link a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+.lm-golf-buying-details { margin-top: 14px; }
+.lm-golf-guide { padding: 0 0 20px; max-width: 70ch; }
+.lm-golf-guide p { margin-top: 10px; }
+@media (max-width: 760px) {
+    .lm-golf-hero { display: block; min-height: 0; }
+    .lm-golf-hero-image { position: static; display: block; width: 100%; height: auto; }
+    .lm-golf-hero::after { display: none; }
+    .lm-golf-hero-copy { padding-block: 16px 30px; }
+    .lm-golf-hero h1 { font-size: clamp(43px, 11vw, 68px); }
+    .lm-golf-section-head { align-items: start; flex-direction: column; }
+    .lm-golf-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lm-golf-looks, .lm-golf-scorecard { grid-template-columns: 1fr; }
+    .lm-golf-looks { gap: 16px; }
+    .lm-golf-looks article {
+        display: grid;
+        grid-template-columns: minmax(0, 36%) minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        border-bottom: 1px solid var(--golf-line);
+        padding-bottom: 12px;
+    }
+    .lm-golf-looks img { aspect-ratio: 1; }
+    .lm-golf-look-copy { padding: 0; border: 0; }
+    .lm-golf-look-copy p:not(.lm-golf-eyebrow) { margin-bottom: 0; font-size: 14px; }
+    .lm-golf-detail-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .lm-golf-detail-grid figcaption { font-size: 13px; }
+    .lm-golf-score-rows p { grid-template-columns: 23px minmax(0, 1fr); gap: 4px 8px; }
+    .lm-golf-score-rows a { grid-column: 2; }
+}
+
+/* Keep Golf type neutral against the shared theme's default title and link colors. */
+.lm-pilot .lm-golf-collection :is(h2,h3,a) { color: inherit; }
+.lm-pilot .lm-golf-collection .lm-golf-button { color: var(--golf-green); }

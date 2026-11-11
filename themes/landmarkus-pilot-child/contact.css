@@ -1,0 +1,150 @@
+.lm-pilot.lm-contact {
+  --lm-ink: #171717;
+  --lm-text: #333;
+  --lm-line: #dedede;
+  color: var(--lm-text);
+}
+
+.lm-contact-main { padding-block: 24px 72px; }
+.lm-contact-content { max-width: 1120px; margin-inline: auto; }
+.lm-contact-main p { font-size: 16px; line-height: 1.65; }
+.lm-contact-main a { color: var(--lm-ink); text-underline-offset: 4px; }
+
+.lm-contact-main .lm-contact-breadcrumb {
+  margin-bottom: 22px;
+  color: #666;
+  font-size: 13px;
+}
+
+.lm-contact-main h1 {
+  margin: 0;
+  color: var(--lm-ink);
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+
+.lm-contact-main .lm-contact-deck {
+  max-width: 64ch;
+  margin: 8px 0 0;
+  color: #555;
+  font-size: 16px;
+}
+
+.lm-contact-main .lm-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(205px, 256px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(28px, 4vw, 64px);
+  margin-top: 28px;
+}
+
+.lm-contact-main .lm-contact-form {
+  grid-column: 2;
+  grid-row: 1;
+  padding: clamp(24px, 2.7vw, 40px);
+  background: #f7f6f4;
+}
+
+.lm-contact-main .lm-contact-form h2,
+.lm-contact-main .lm-contact-info h2 {
+  margin: 0;
+  color: var(--lm-ink);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+
+.lm-contact-main .lm-contact-form h2 { font-size: 28px; }
+.lm-contact-main .lm-contact-info { grid-column: 1; grid-row: 1; padding-top: 22px; }
+.lm-contact-main .lm-contact-info h2 { font-size: 20px; }
+.lm-contact-main .lm-contact-info h3 {
+  margin: 18px 0 3px;
+  color: #555;
+  font-size: 13px;
+  font-weight: 600;
+}
+.lm-contact-main .lm-contact-info p {
+  margin: 0;
+  color: #555;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.lm-contact-main .lm-contact-info .lm-contact-faq-link {
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid var(--lm-line);
+  font-weight: 500;
+}
+
+.lm-contact-main .lm-local-inquiry-note {
+  margin: 8px 0 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.lm-contact-main .lm-inquiry-details {
+  margin-top: 16px;
+  border-block: 1px solid #d9d6d2;
+}
+.lm-contact-main .lm-inquiry-details summary {
+  min-height: 44px;
+  padding-block: 11px;
+  color: var(--lm-ink);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  cursor: pointer;
+}
+.lm-contact-main .lm-inquiry-details summary:focus-visible {
+  outline: 2px solid var(--lm-ink);
+  outline-offset: 2px;
+}
+.lm-contact-main .lm-inquiry-details .lm-inquiry-grid { padding-bottom: 18px; }
+
+.lm-contact-main .lm-inquiry-prefilled,
+.lm-contact-main .lm-inquiry-details-error { display: none; }
+.lm-contact-main .lm-inquiry-details:has(#lm-reference[value]:not([value=""])) .lm-inquiry-prefilled,
+.lm-contact-main .lm-inquiry-details:has([aria-invalid="true"]) .lm-inquiry-details-error {
+  display: inline-block;
+  margin-inline-start: 8px;
+  color: #555;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.lm-contact-main .wpcf7{margin-top:20px}.lm-contact-main .wpcf7 form{margin:0}.lm-contact-main .lm-inquiry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 20px}.lm-contact-main .lm-inquiry-wide{grid-column:1/-1}.lm-contact-main .lm-inquiry-field{min-width:0}.lm-contact-main .lm-inquiry-field label{display:block;font:500 14px/1.6 "Public Sans",sans-serif;color:#171717;margin-bottom:8px}.lm-contact-main .lm-inquiry-field label span{font-weight:400;color:#666;font-size:12px}.lm-contact-main .lm-inquiry-field .wpcf7-form-control-wrap{display:block}.lm-contact-main .lm-inquiry-field input,.lm-contact-main .lm-inquiry-field select,.lm-contact-main .lm-inquiry-field textarea{display:block;width:100%;min-height:46px;border:1px solid #bdbdbd;border-radius:2px;padding:10px 12px;background:#fff;box-shadow:none;font:400 15px/1.6 "Public Sans",sans-serif;color:#171717;max-width:100%;margin:0}.lm-contact-main .lm-inquiry-field textarea{height:112px;resize:vertical}.lm-contact-main .lm-inquiry-field :is(input,select,textarea):focus{border-color:#171717;outline:2px solid #171717;outline-offset:2px}.lm-contact-main .lm-inquiry-hint{font-size:12px;color:#666;line-height:1.6;margin-top:7px}.lm-contact-main .lm-inquiry-privacy{font-size:12px;line-height:1.65;color:#666;margin-top:16px}.lm-contact-main .lm-inquiry-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px}.lm-contact-main .wpcf7 input[type=submit]{border:1px solid #171717;border-radius:2px;background:#171717;color:#fff;padding:13px 24px;min-height:48px;font:600 14px/1.5 "Public Sans",sans-serif;margin:0}.lm-contact-main .wpcf7 input[type=submit]:hover{background:#333}.lm-contact-main .wpcf7 input[type=submit]:disabled{opacity:.6;cursor:wait}.lm-contact-main .lm-inquiry-progress{font-size:13px;color:#555}.lm-contact-main .wpcf7-not-valid-tip{font-size:13px;line-height:1.6;color:#973d27;margin-top:6px}.lm-contact-main .wpcf7 form .wpcf7-response-output{margin:20px 0 0;padding:14px 16px;border:1px solid #777;border-left-width:3px;font-size:14px;line-height:1.7;color:#333;background:#fafafa}.lm-contact-main .wpcf7 form.sent .wpcf7-response-output{border-color:#58705d}.lm-contact-main .wpcf7 form.invalid .wpcf7-response-output,.lm-contact-main .wpcf7 form.failed .wpcf7-response-output{border-color:#973d27}.lm-contact-main .lm-inquiry-trap{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
+
+@media (max-width: 880px) {
+  .lm-contact-main .lm-inquiry-grid { grid-template-columns: 1fr; }
+  .lm-contact-main .lm-inquiry-wide { grid-column: auto; }
+}
+
+@media (max-width: 760px) {
+  .lm-contact-main { padding-block: 18px 48px; }
+  .lm-contact-main .lm-contact-breadcrumb { margin-bottom: 15px; }
+  .lm-contact-main .lm-contact-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 18px;
+  }
+  .lm-contact-main .lm-contact-form,
+  .lm-contact-main .lm-contact-info { width: 100%; }
+  .lm-contact-main .lm-contact-form { padding: 18px; }
+  .lm-contact-main .lm-contact-form h2 { font-size: 23px; }
+  .lm-contact-main .lm-contact-info { padding-top: 0; }
+  .lm-contact-main .wpcf7 { margin-top: 16px; }
+  .lm-contact-main .lm-inquiry-grid { gap: 16px; }
+  .lm-contact-main .lm-inquiry-field :is(input, textarea, select) { font-size: 16px; }
+  .lm-contact-main .lm-inquiry-actions > p { position: relative; flex-basis: 100%; }
+  .lm-contact-main .wpcf7 input[type=submit] { display: block; width: 100%; }
+  .lm-contact-main .lm-inquiry-actions .wpcf7-spinner {
+    position: absolute;
+    inset-block-start: 12px;
+    inset-inline-end: 12px;
+    margin: 0;
+  }
+}

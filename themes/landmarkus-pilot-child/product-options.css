@@ -1,0 +1,11 @@
+/* 只读颜色清单/尺码网格：用于快览及产品属性；没有伪选择按钮。 */
+.lm-option-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px;list-style:none!important;padding:0!important;margin:0!important;font:400 14px/1.45 "Public Sans",Arial,sans-serif;color:#303030}
+.lm-option-values>li{list-style:none!important;min-width:0;padding:8px 10px;margin:0!important;background:#f6f6f6;border:0;border-radius:2px;overflow-wrap:anywhere;cursor:default}
+.lm-option-values>li::marker{content:""}
+.lm-option-values--sizes{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.lm-option-values--sizes>li{text-align:center;font-variant-numeric:tabular-nums;padding:8px 4px}
+.lm-option-values--long{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lm-option-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:9px}
+.lm-pilot .lm-option-heading h3{font:500 15px/1.4 var(--lm-body);letter-spacing:0;color:#161616;margin:0}
+.lm-option-heading>span{font:400 12px/1.5 "Public Sans",Arial,sans-serif;color:#595959;white-space:nowrap}
+@media(max-width:360px){.lm-option-values{font-size:13px}.lm-option-values>li{padding:7px 8px}.lm-option-values--sizes>li{padding-inline:3px}}

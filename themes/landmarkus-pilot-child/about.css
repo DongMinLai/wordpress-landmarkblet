@@ -1,0 +1,217 @@
+/* About: native Gutenberg content and page-scoped presentation. */
+.lm-ui-polished.lm-about {
+  background: #fff;
+  color: #242424;
+}
+
+.lm-about-main {
+  --about-ink: #171717;
+  --about-text: #242424;
+  --about-muted: #595959;
+  --about-rule: #dedede;
+  padding-block: clamp(28px, 4vw, 56px) clamp(48px, 5vw, 76px);
+}
+
+.lm-about-main .wp-block-group { min-width: 0; }
+
+.lm-about-main :is(h1, h2, h3, p) {
+  margin: 0;
+  color: var(--about-text);
+  font-family: 'Public Sans', Arial, sans-serif;
+}
+
+.lm-about-main p { font-size: 16px; line-height: 1.65; }
+
+.lm-about-main :is(h1, h2, h3) {
+  color: var(--about-ink);
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+
+.lm-about-main h1 { font-size: clamp(32px, 4vw, 56px); line-height: 1.1; }
+.lm-about-main h2 { font-size: clamp(26px, 2.7vw, 36px); line-height: 1.2; }
+.lm-about-main h3 { font-size: 21px; line-height: 1.25; }
+
+.lm-about-main figure.wp-block-image {
+  margin: 0;
+  min-width: 0;
+}
+
+.lm-about-main figure.wp-block-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.lm-about-main figure.wp-block-image figcaption {
+  margin: 8px 0 0;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.lm-about-main .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+}
+
+.lm-about-main .wp-block-button { margin: 0; }
+
+.lm-about-main .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 13px 20px;
+  border: 1px solid var(--about-ink);
+  border-radius: 0;
+  background: var(--about-ink);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.lm-about-main .wp-block-button__link:hover { background: #353535; border-color: #353535; }
+.lm-about-main .lm-about-secondary .wp-block-button__link { background: #fff; color: var(--about-ink); }
+.lm-about-main .lm-about-secondary .wp-block-button__link:hover { background: #f5f5f3; }
+
+.lm-about-main a:not(.wp-block-button__link) {
+  color: var(--about-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.lm-about-main a:not(.wp-block-button__link):hover { text-decoration-thickness: 2px; }
+.lm-about-main a:focus-visible { outline: 3px solid #bf5834; outline-offset: 4px; }
+
+.lm-about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  align-items: center;
+  gap: clamp(32px, 4.5vw, 64px);
+  padding-bottom: clamp(32px, 4.5vw, 64px);
+}
+
+.lm-about-intro {
+  display: grid;
+  justify-items: start;
+  gap: 20px;
+}
+
+.lm-about-main .lm-about-deck {
+  max-width: 42ch;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.55;
+}
+
+.lm-about-wholesale {
+  padding-block: clamp(30px, 4vw, 56px);
+  border-top: 1px solid var(--about-rule);
+}
+
+.lm-about-section-intro { display: grid; gap: 8px; }
+
+.lm-about-main .lm-about-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 22px;
+  border-block: 1px solid var(--about-rule);
+}
+
+.lm-about-fact {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 18px 24px;
+}
+
+.lm-about-fact:first-child { padding-inline-start: 0; }
+.lm-about-fact + .lm-about-fact { border-inline-start: 1px solid var(--about-rule); }
+.lm-about-main .lm-about-fact p { color: var(--about-muted); font-size: 15px; }
+
+.lm-about-main .lm-about-help { margin-top: 14px; }
+.lm-about-help a { display: inline-flex; align-items: center; min-height: 40px; }
+
+.lm-about-manufacturing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  grid-template-areas: 'photo intro' 'photo paths';
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  gap: 18px clamp(32px, 4.5vw, 64px);
+  padding-block: clamp(32px, 4.5vw, 64px);
+  border-top: 1px solid var(--about-rule);
+}
+
+.lm-about-manufacturing-copy { grid-area: intro; display: grid; gap: 10px; }
+.lm-about-main .lm-about-process-photo { grid-area: photo; max-width: 666px; }
+.lm-about-manufacturing-links { grid-area: paths; display: grid; gap: 10px; }
+
+.lm-about-main .lm-about-resources {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.lm-about-resources a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+}
+
+.lm-about-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 22px 36px;
+  padding: clamp(24px, 3vw, 40px);
+  background: #f5f5f3;
+}
+
+.lm-about-company { display: grid; gap: 10px; }
+.lm-about-main .lm-about-company h2 { font-size: clamp(24px, 2.4vw, 30px); }
+.lm-about-main .lm-about-company p { font-size: 15px; }
+
+@media (max-width: 900px) {
+  .lm-about-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .lm-about-manufacturing {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'intro' 'photo' 'paths';
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .lm-about-intro { gap: 14px; }
+  .lm-about-main .lm-about-facts { grid-template-columns: 1fr; margin-top: 16px; }
+  .lm-about-fact { padding: 12px 0; }
+  .lm-about-fact + .lm-about-fact {
+    border-inline-start: 0;
+    border-top: 1px solid var(--about-rule);
+  }
+
+  .lm-about-main .lm-about-help { margin-top: 8px; }
+  .lm-about-main .lm-about-resources { column-gap: 16px; }
+}

@@ -1,0 +1,120 @@
+/* 最终UI收口：可读性、平板断点、完整商品名与键盘焦点。 */
+.lm-ui-polished .lm-brand-note{font-size:12px;letter-spacing:.1em}
+.lm-ui-polished .lm-contact-v2 .lm-eyebrow{font-size:12px}
+.lm-ui-polished .lm-header-actions a{width:44px;height:44px;flex-shrink:0}
+.lm-ui-polished .lm-utility a{display:inline-flex;align-items:center;min-height:32px}
+.lm-ui-polished :is(.lm-utility,.lm-contact-v2,.lm-footer) a:focus-visible{outline-color:#fff}
+.lm-ui-polished .lm-products .product figure a:focus-visible{outline:3px solid var(--lm-primary);outline-offset:-4px}
+.lm-ui-polished .lm-category{position:relative}
+.lm-ui-polished .lm-category-pair-photo{padding-block:13px}
+.lm-ui-polished .lm-category-name a{position:static;min-height:32px}
+.lm-ui-polished .lm-category-name a:after{content:"";position:absolute;inset:0;z-index:1}
+.lm-ui-polished .lm-category:focus-within{outline:3px solid var(--lm-primary);outline-offset:4px}
+.lm-ui-polished .lm-category-name a:focus-visible{outline:none}
+.lm-ui-polished .lm-section-link a{display:inline-flex;align-items:center;min-height:28px;padding-block:3px}
+.lm-ui-polished .lm-hero-help-v2 a,.lm-ui-polished .lm-returning-link a,.lm-ui-polished .lm-custom-link a,.lm-ui-polished .lm-contact-secondary a{display:inline-block;min-height:28px;padding-block:3px}
+.lm-ui-polished .lm-products .woocommerce-loop-product__title{display:block;overflow:visible;-webkit-line-clamp:unset;min-height:2.8em;line-height:1.4;overflow-wrap:anywhere}
+.lm-ui-polished .lm-products .product .price{margin-top:auto;min-height:28px}
+.lm-ui-polished .lm-products .product .price .lm-price-login{display:inline-block;min-height:28px;padding-block:3px;line-height:1.45}
+.lm-ui-polished .lm-products .product .lm-card-link,.lm-ui-polished .lm-products .ct-woo-card-actions .lm-card-link{min-height:44px;margin-top:0;padding-block:10px;justify-content:flex-start}
+.lm-ui-polished .lm-footer-note,.lm-ui-polished .lm-footer p{font-size:13px}
+.lm-ui-polished .lm-footer a{display:inline-block;min-height:32px;padding-block:5px}
+.lm-ui-polished .wp-block-button__link{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:1280px){.lm-ui-polished .lm-brand-rule,.lm-ui-polished .lm-brand-note{display:none}}
+@media(min-width:761px) and (max-width:1023px){
+ .lm-ui-polished .lm-category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+ .lm-ui-polished .lm-category-pair-photo img{height:112px}
+ .lm-ui-polished .lm-products .woocommerce ul.products{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .lm-ui-polished .lm-products .woocommerce-loop-product__title{font-size:16px}
+}
+@media(max-width:1023px){
+ .lm-ui-polished .lm-header__inner{min-height:82px;position:relative;gap:20px}
+ .lm-ui-polished .lm-nav{display:none}
+ .lm-ui-polished .lm-header-actions{margin-left:auto;border:0;padding:0;gap:12px}
+ .lm-ui-polished .lm-mobile-menu{display:block;margin-left:6px}
+ .lm-ui-polished .lm-mobile-menu summary{display:flex;align-items:center;min-height:44px;list-style:none;cursor:pointer;font-size:16px;font-weight:600;color:var(--lm-ink);padding:10px 0}
+ .lm-ui-polished .lm-mobile-menu summary::-webkit-details-marker{display:none}
+ .lm-ui-polished .lm-mobile-menu summary:after{content:"☰";font-size:22px;margin-left:9px;line-height:1}
+ .lm-ui-polished .lm-mobile-menu[open] summary:after{content:"×"}
+ .lm-ui-polished .lm-mobile-menu nav{position:absolute;top:100%;right:0;left:0;z-index:100;background:white;padding:12px 20px;border:1px solid var(--lm-line);box-shadow:0 8px 18px #08285112;display:grid;gap:4px}
+ .lm-ui-polished .lm-mobile-menu nav a{display:block;min-height:44px;padding:10px 0;font-size:16px;text-decoration:none;font-weight:600}
+}
+@media(max-width:760px){
+ .lm-ui-polished .lm-utility .lm-shell{min-height:32px;font-size:12px}
+ .lm-ui-polished .lm-utility a{display:none}
+ .lm-ui-polished .lm-header__inner{min-height:78px;gap:16px}
+ .lm-ui-polished .lm-eyebrow{font-size:12px;letter-spacing:.08em}
+ .lm-ui-polished .lm-products .lm-sku{font-size:12px;letter-spacing:.06em}
+ .lm-ui-polished .lm-products .woocommerce-loop-product__title{font-size:15px;line-height:1.4;min-height:2.8em}
+ .lm-ui-polished .lm-products .product .price{min-height:42px}
+ .lm-ui-polished .lm-products .product .price .lm-price-login{font-size:14px;min-height:28px}
+ .lm-ui-polished .lm-products .product .lm-card-link{font-size:14px}
+ .lm-ui-polished .lm-category-pair-photo{padding-block:9px}
+ .lm-ui-polished .lm-category h3{font-size:16px}
+ .lm-ui-polished .lm-section-link{font-size:14px}
+ .lm-ui-polished .lm-button .wp-block-button__link{font-size:16px;min-height:48px}
+}
+
+/* 平板文字覆盖照片时，增强可读遮罩。 */
+@media(min-width:761px) and (max-width:1100px){.lm-ui-polished .lm-hero-v2:after{background:linear-gradient(90deg,#fffffff5 0%,#ffffffeb 35%,#ffffffcc 53%,#ffffff00 78%)}}
+
+.lm-ui-polished .lm-products .price del{font-size:12px}
+@media(max-width:760px){.lm-ui-polished .lm-products .product .price{font-size:15px;line-height:1.45}}
+
+/* Human确认：浅底文字以黑灰为主；蓝色保留为品牌背景与非文字强调。 */
+body.lm-ui-polished{--lm-text:#303030;--lm-heading:#161616;--lm-muted:#595959;--theme-palette-color-3:#303030;--theme-palette-color-4:#161616;--theme-link-initial-color:#161616;--theme-link-hover-color:#161616;color:#303030}
+.lm-ui-polished :is(.lm-hero-title-v2,.lm-section-title,.lm-benefit-title,.lm-step-title,.lm-category-name){color:var(--lm-heading)}
+.lm-ui-polished .lm-nav a,.lm-ui-polished .lm-nav a:hover{color:var(--lm-heading)}
+.lm-ui-polished .lm-nav a:hover{border-color:var(--lm-heading)}
+.lm-ui-polished .lm-header-actions svg{stroke:var(--lm-heading)}
+.lm-ui-polished .lm-mobile-menu summary,.lm-ui-polished .lm-mobile-menu nav a{color:var(--lm-heading)}
+.lm-ui-polished .lm-brand-note,.lm-ui-polished .lm-eyebrow{color:var(--lm-muted)}
+.lm-ui-polished :is(.lm-section-link,.lm-returning-link,.lm-custom-link,.lm-hero-help-v2,.lm-order-number,.lm-skip){color:var(--lm-heading)}
+.lm-ui-polished .lm-products .woocommerce-loop-product__title,.lm-ui-polished .lm-products .product .price,.lm-ui-polished .lm-products .price ins,.lm-ui-polished .lm-products .product .lm-card-link{color:var(--lm-heading)}
+.lm-ui-polished .lm-products .product .price .lm-price-login{color:var(--lm-heading)}
+.lm-ui-polished .lm-products .lm-sku,.lm-ui-polished .lm-products .lm-price-unit{color:var(--lm-muted)}
+.lm-ui-polished .lm-products .price del{color:#666666}
+.lm-ui-polished .lm-benefit-v2 p,.lm-ui-polished .lm-order-step-v2>p:last-child{color:var(--lm-text)}
+.lm-ui-polished :is(.lm-heritage-shot-v3,.lm-workshop-shot-v3) .wp-element-caption{color:var(--lm-muted)}
+.lm-ui-polished .lm-contact-v2 .lm-section-title{color:#fff}
+.lm-ui-polished .lm-contact-v2 .lm-eyebrow,.lm-ui-polished .lm-contact-copy-v2>p:last-child{color:#f2f2f2}
+.lm-ui-polished .lm-footer{color:#ededed}
+.lm-ui-polished .lm-footer-note{color:#ddd}
+
+/* 字体收敛：一种字族、三档字重；以商品目录的可扫读性建立秩序。 */
+body.lm-ui-polished{font-synthesis:none;font-size:16px;line-height:1.55}
+.lm-ui-polished .lm-hero-title-v2{font-size:60px;line-height:1.1;letter-spacing:-.035em;font-weight:600}
+.lm-ui-polished .lm-hero-description-v2{font-size:18px;line-height:1.6;max-width:35ch}
+.lm-ui-polished .lm-eyebrow{font-size:13px;line-height:1.5;font-weight:500;letter-spacing:.02em;text-transform:none}
+.lm-ui-polished .lm-brand-note{font-size:12px;letter-spacing:.02em;font-weight:500}
+.lm-ui-polished .lm-nav a,.lm-ui-polished .lm-mobile-menu nav a,.lm-ui-polished .lm-mobile-menu summary{font-weight:500}
+.lm-ui-polished .lm-section-title,.lm-ui-polished .lm-heritage-copy-v3 .lm-section-title,.lm-ui-polished .lm-custom-copy-v2 .lm-section-title,.lm-ui-polished .lm-contact-v2 .lm-section-title{font-size:32px;line-height:1.25;letter-spacing:-.025em;font-weight:600}
+.lm-ui-polished .lm-category h3{font-size:16px;font-weight:500;line-height:1.4;letter-spacing:0}
+.lm-ui-polished .lm-section-link{font-size:15px;font-weight:500}
+.lm-ui-polished .lm-products .woocommerce-loop-product__title{font-size:16px;font-weight:500;line-height:1.5;letter-spacing:0;min-height:3em;margin-top:8px;margin-bottom:14px}
+.lm-ui-polished .lm-products .lm-sku{font-size:12px;font-weight:400;letter-spacing:.025em;line-height:1.5}
+.lm-ui-polished .lm-products .product .price .lm-price-login{font-size:14px;font-weight:400;line-height:1.5}
+.lm-ui-polished .lm-products .product .lm-card-link{font-size:14px;font-weight:500;line-height:1.5}
+.lm-ui-polished .lm-products .product .price{font-weight:500}
+.lm-ui-polished .lm-benefit-title,.lm-ui-polished .lm-heritage-points-v3 .lm-benefit-title,.lm-ui-polished .lm-step-title{font-size:18px;line-height:1.4;font-weight:600;letter-spacing:-.01em}
+.lm-ui-polished .lm-order-description,.lm-ui-polished .lm-heritage-intro-v3{font-size:17px;line-height:1.6}
+.lm-ui-polished .lm-benefit-v2 p,.lm-ui-polished .lm-order-step-v2>p:last-child,.lm-ui-polished .lm-custom-copy-v2>p:not(.lm-eyebrow){font-size:16px;line-height:1.6}
+.lm-ui-polished .lm-contact-v2 .lm-eyebrow{font-size:13px}
+.lm-ui-polished .lm-utility{font-weight:400;letter-spacing:0}
+@media(max-width:1100px){.lm-ui-polished .lm-hero-title-v2{font-size:50px}}
+@media(max-width:760px){
+ .lm-ui-polished .lm-hero-title-v2{font-size:40px;line-height:1.12;letter-spacing:-.03em}
+ .lm-ui-polished .lm-hero-description-v2{font-size:17px;line-height:1.6}
+ .lm-ui-polished .lm-section-title,.lm-ui-polished .lm-heritage-copy-v3 .lm-section-title,.lm-ui-polished .lm-custom-copy-v2 .lm-section-title,.lm-ui-polished .lm-contact-v2 .lm-section-title{font-size:26px;line-height:1.25;letter-spacing:-.02em}
+ .lm-ui-polished .lm-eyebrow,.lm-ui-polished .lm-contact-v2 .lm-eyebrow{font-size:12px;letter-spacing:.02em}
+ .lm-ui-polished .lm-category h3{font-size:15px}
+ .lm-ui-polished .lm-section-link{font-size:14px}
+ .lm-ui-polished .lm-products .woocommerce-loop-product__title{font-size:15px;line-height:1.5}
+ .lm-ui-polished .lm-products .lm-sku{letter-spacing:.025em}
+ .lm-ui-polished .lm-order-description,.lm-ui-polished .lm-heritage-intro-v3{font-size:16px}
+ .lm-ui-polished .lm-hero-help-v2{font-size:14px}
+}
+@media(max-width:360px){
+ .lm-ui-polished .lm-hero-title-v2{font-size:35px}
+ .lm-ui-polished .lm-section-title,.lm-ui-polished .lm-heritage-copy-v3 .lm-section-title,.lm-ui-polished .lm-custom-copy-v2 .lm-section-title,.lm-ui-polished .lm-contact-v2 .lm-section-title{font-size:24px}
+}

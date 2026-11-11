@@ -1,0 +1,4 @@
+/* Public Sans官方静态字重，本地托管；仅400/500/600，不依赖合成粗体。 */
+@font-face{font-family:'Public Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/public-sans-regular.woff2) format('woff2')}
+@font-face{font-family:'Public Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/public-sans-medium.woff2) format('woff2')}
+@font-face{font-family:'Public Sans';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/public-sans-semibold.woff2) format('woff2')}

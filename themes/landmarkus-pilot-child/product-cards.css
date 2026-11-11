@@ -1,0 +1,77 @@
+/* 商品卡精修：更轻的目录布局、真实图库换图、触屏可达的快速查看。 */
+.lm-pilot .lm-products ul.products li.product{border:0;border-bottom:1px solid var(--lm-line);padding-bottom:16px;overflow:visible;background:transparent;box-shadow:none}
+.lm-pilot .lm-products .product figure{position:relative;isolation:auto;overflow:hidden}
+.lm-pilot .lm-products .product figure a{outline-offset:-4px}
+.lm-pilot .lm-products .product img{padding:10px;background:transparent;mix-blend-mode:normal;transform:none}
+.lm-pilot .lm-products .product:hover img{transform:none}
+.lm-pilot .lm-products .lm-card-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:15px}
+.lm-pilot .lm-products .lm-card-meta .lm-sku,.lm-pilot .lm-products .lm-card-options{font:400 12px/1.5 var(--lm-body);letter-spacing:.015em;margin:0;color:var(--lm-muted)}
+.lm-pilot .lm-products .lm-card-options{white-space:nowrap;letter-spacing:0}
+.lm-pilot .lm-products .woocommerce-loop-product__title{font:500 16px/1.5 var(--lm-body);min-height:3em;letter-spacing:0;margin:7px 0 12px;overflow:visible;overflow-wrap:anywhere}
+.lm-pilot .lm-products .product .price{margin:0 0 4px;margin-top:auto;min-height:28px}
+.lm-pilot .lm-quick-view[hidden]{display:none!important}
+.lm-pilot .lm-quick-view{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;max-width:calc(100% - 24px);padding:9px 15px;border:1px solid #d0d0d0;border-radius:2px;background:#fff;color:#161616;font:500 14px/1.4 var(--lm-body);white-space:nowrap;cursor:pointer;z-index:5;opacity:0;transition:opacity .16s,border-color .16s}
+.lm-pilot .lm-quick-view svg,.lm-pilot .lm-qv-close svg{fill:none;stroke:currentColor;stroke-width:1.5}
+.lm-pilot .lm-quick-view:hover{background:#fff;border-color:#161616;color:#161616}
+.lm-pilot .product:is(:hover,:focus-within) .lm-quick-view{opacity:1}
+.lm-pilot .lm-quick-view:focus-visible{outline:3px solid var(--lm-primary);outline-offset:3px;opacity:1}
+@media(hover:hover) and (pointer:fine){
+ .lm-pilot .lm-products [data-hover="swap"]>.product:hover .ct-swap,.lm-pilot .lm-products [data-hover="swap"]>.product:focus-within .ct-swap{opacity:1}
+ .lm-pilot .lm-products [data-hover="swap"]>.product:is(:hover,:focus-within) .ct-swap+img{opacity:0}
+}
+@media(hover:none),(pointer:coarse){
+ .lm-pilot .lm-quick-view{opacity:1}
+ .lm-pilot .lm-products .ct-swap{opacity:0!important}
+ .lm-pilot .lm-products .ct-swap+img{opacity:1!important}
+}
+@media(max-width:760px){
+ .lm-pilot .lm-products .woocommerce-loop-product__title{font-size:15px}
+ .lm-pilot .lm-products .product img{padding:5px}
+ .lm-pilot .lm-products .lm-card-meta{gap:8px;margin-top:12px}
+ .lm-pilot .lm-products .product .price{min-height:42px}
+ .lm-pilot .lm-quick-view{opacity:1;bottom:8px;min-height:36px;padding:7px 10px;font-size:13px;gap:6px}
+ .lm-pilot .lm-quick-view svg{width:16px;height:16px}
+}
+/* 原生模态；字体与价格权限延续同一页面体系。 */
+html.lm-qv-open{overflow:hidden;scrollbar-gutter:stable}
+body.lm-pilot .lm-qv{width:min(1040px,calc(100% - 48px));max-width:none;max-height:calc(100svh - 48px);padding:0;border:1px solid #dedede;border-radius:2px;background:#fff;color:#303030;box-shadow:0 18px 60px #0003;overflow:auto;font:400 16px/1.55 var(--lm-body)}
+.lm-pilot .lm-qv::backdrop{background:rgba(0,0,0,.52)}
+.lm-pilot .lm-qv-close{position:sticky;top:12px;display:flex;align-items:center;justify-content:center;width:44px;min-height:44px;margin:12px 12px -56px auto;padding:0;background:#fff;color:#161616;border:1px solid #d0d0d0;border-radius:50%;z-index:2;cursor:pointer}
+.lm-pilot .lm-qv-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;padding:38px}
+.lm-pilot .lm-qv-gallery{min-width:0}
+.lm-pilot .lm-qv-image{aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.lm-pilot .lm-qv-main-image{display:block;width:100%;height:100%;aspect-ratio:1;object-fit:contain;background:transparent;mix-blend-mode:normal}
+.lm-pilot .lm-qv-thumbnails{display:flex;gap:8px;padding:5px 3px 10px;overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain}
+.lm-pilot .lm-qv-thumbnail{flex:0 0 60px;width:60px;height:60px;min-height:60px;padding:3px;background:#fff;border:1px solid #dcdcdc;border-radius:0;cursor:pointer}
+.lm-pilot .lm-qv-thumbnail[aria-pressed="true"]{border:2px solid #161616;padding:2px}
+.lm-pilot .lm-qv-thumbnail img{display:block;width:100%;height:100%;object-fit:contain;background:transparent;mix-blend-mode:normal}
+.lm-pilot .lm-qv-photo-status{font-size:12px;line-height:1.5;color:#595959;margin-top:7px}
+.lm-pilot .lm-qv-summary{min-width:0;padding-top:16px}
+.lm-pilot .lm-qv-sku{font-size:13px;line-height:1.5;color:#595959;letter-spacing:.025em}
+.lm-pilot .lm-qv h2{font:600 28px/1.25 var(--lm-body);letter-spacing:-.02em;color:#161616;margin:10px 0 20px;overflow-wrap:anywhere}
+.lm-pilot .lm-qv-price{font:500 18px/1.5 var(--lm-body);color:#161616;padding-bottom:22px;border-bottom:1px solid var(--lm-line)}
+.lm-pilot .lm-qv .lm-price-login{display:inline-block;min-height:28px;padding-block:3px;font-size:15px;font-weight:400;color:#161616;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.lm-pilot .lm-qv-price del{font-size:14px;color:#666;margin-right:6px}
+.lm-pilot .lm-qv-price ins{background:none;text-decoration:none;color:#161616}
+.lm-pilot .lm-qv .lm-price-unit{font-size:13px;font-weight:400;color:#595959}
+.lm-pilot .lm-qv-options{margin:20px 0;display:grid;gap:20px}
+.lm-pilot .lm-qv-order-note{font-size:14px;line-height:1.6;color:#595959;margin-top:22px}
+.lm-pilot .lm-qv-details{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin-top:22px;padding:12px 20px;border:1px solid #161616;background:#161616;color:#fff;font-size:15px;font-weight:500;text-decoration:none}
+.lm-pilot .lm-qv-details:hover{background:#303030;color:#fff}
+.lm-pilot .lm-qv :is(button,a):focus-visible{outline:3px solid var(--lm-primary);outline-offset:3px}
+@media(max-width:760px){
+ body.lm-pilot .lm-qv{width:calc(100% - 24px);max-height:calc(100svh - 24px)}
+ .lm-pilot .lm-qv-layout{grid-template-columns:1fr;gap:16px;padding:46px 20px 24px}
+ .lm-pilot .lm-qv-close{top:8px;margin-top:8px;margin-right:8px}
+ .lm-pilot .lm-qv-image{max-height:320px}
+ .lm-pilot .lm-qv-summary{padding-top:0}
+ .lm-pilot .lm-qv h2{font-size:23px;margin-bottom:16px}
+ .lm-pilot .lm-qv-options{font-size:15px}
+ .lm-pilot .lm-qv-details{width:100%}
+}
+
+/* 整卡链接由商品标题覆盖；登录入口与快览位于覆盖层之上。 */
+.lm-pilot .lm-products .woocommerce-loop-product__title,.lm-pilot .lm-products .woocommerce-loop-product__title a{position:static}
+.lm-pilot .lm-products .woocommerce-loop-product__title a:after{content:"";position:absolute;inset:0;z-index:1}
+.lm-pilot .lm-products .woocommerce-loop-product__title a:focus-visible:after{outline:3px solid var(--lm-primary);outline-offset:3px}
+.lm-pilot .lm-products .product .lm-price-login{position:relative;z-index:3}

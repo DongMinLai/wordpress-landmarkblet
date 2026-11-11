@@ -1,0 +1,79 @@
+/* 批发目录：窄导航、清晰采购工具、大幅原生商品图。 */
+.lm-commerce .lm-catalog-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:32px;align-items:end;padding-bottom:30px;border-bottom:1px solid #ddd;margin-bottom:32px}
+.lm-commerce .lm-catalog-eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#595959;margin:0 0 8px}
+.lm-commerce .lm-catalog-heading h1{margin:0 0 12px;font-size:36px}
+.lm-commerce .lm-catalog-intro{margin:0;font-size:14px;color:#595959;line-height:1.6}
+.lm-commerce .lm-catalog-search label{display:block;font-size:13px;font-weight:500;margin-bottom:8px;color:#161616}
+.lm-commerce .lm-catalog-search>div{display:flex;gap:8px}.lm-commerce .lm-catalog-search input{width:100%;min-width:0;padding:10px 12px}
+.lm-commerce .lm-catalog-search button{flex:none}
+.lm-commerce .lm-catalog-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;align-items:start}
+.lm-commerce .lm-catalog-results{min-width:0}
+.lm-commerce .lm-catalog-filters h2{font-size:15px;line-height:1.4;font-weight:500;letter-spacing:0;margin:0 0 16px;color:#161616}
+.lm-commerce .lm-catalog-categories{border-bottom:1px solid #ddd;padding-bottom:24px;margin-bottom:24px}
+.lm-commerce .lm-catalog-categories ul{list-style:none;padding:0;margin:0}.lm-commerce .lm-catalog-categories ul ul{padding-left:14px}
+.lm-commerce .lm-catalog-categories li{margin:0;padding:0;line-height:1.4}
+.lm-commerce .lm-catalog-categories a{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:40px;padding:7px 0;font-size:14px;color:#303030;text-decoration:none;overflow-wrap:anywhere}
+.lm-commerce .lm-catalog-categories a[aria-current="page"]{font-weight:600;color:#161616;text-decoration:underline;text-underline-offset:4px}
+.lm-commerce .lm-category-count{font-size:12px;color:#595959;font-variant-numeric:tabular-nums;flex:none}
+.lm-commerce .lm-catalog-filter-form label{display:block;font-size:13px;font-weight:500;color:#161616;margin:18px 0 7px}
+.lm-commerce .lm-catalog-filter-form select{display:block;width:100%;font-size:14px;padding:8px 28px 8px 10px;min-width:0;text-overflow:ellipsis}
+.lm-commerce .lm-catalog-filter-form .lm-catalog-apply{width:100%;margin-top:20px}
+.lm-commerce .lm-catalog-reset{display:inline-flex;align-items:center;min-height:40px;font-size:13px;text-decoration:underline;margin-top:6px}
+.lm-commerce .lm-catalog-filter-note{font-size:13px;color:#595959}
+.lm-commerce .lm-catalog-results ul.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}
+.lm-commerce .lm-catalog-results .woocommerce-result-count{font-size:13px;margin:0;align-self:center}
+.lm-commerce .lm-catalog-results .woocommerce-ordering{font-size:13px;margin:0}
+.lm-commerce .lm-catalog-results .woocommerce-ordering select{max-width:220px;font-size:14px;min-height:44px}
+.lm-commerce .lm-catalog-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;margin-bottom:22px}
+.lm-commerce .lm-catalog-toolbar:after{content:none}
+.lm-commerce .lm-catalog-active{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.lm-commerce .lm-catalog-active a{display:inline-flex;align-items:center;gap:12px;max-width:100%;min-height:36px;padding:7px 10px;border:1px solid #ccc;font-size:13px;line-height:1.4;text-decoration:none;color:#303030;overflow-wrap:anywhere}
+.lm-commerce .lm-catalog-active .lm-catalog-clear{border-color:transparent;text-decoration:underline}
+.lm-commerce .lm-catalog-mobile-tools{display:none}
+.lm-commerce .lm-catalog-filter-dialog{width:min(440px,calc(100% - 24px));max-width:none;max-height:calc(100svh - 24px);border:1px solid #ddd;padding:0;border-radius:2px;background:#fff;color:#161616;overflow:auto}
+.lm-commerce .lm-catalog-filter-dialog::backdrop{background:#0008}
+.lm-commerce .lm-catalog-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;border-bottom:1px solid #ddd;background:#fff;position:sticky;top:0;z-index:2}
+.lm-commerce .lm-catalog-dialog-header h2{font-size:20px;margin:0;line-height:1.4}
+.lm-commerce .lm-catalog-dialog-header .lm-catalog-close{display:grid;place-items:center;min-height:44px;width:44px;padding:0;border:1px solid #ccc;border-radius:50%;background:#fff;color:#161616;font-size:24px;line-height:1}
+.lm-commerce .lm-catalog-dialog-content{padding:20px}
+.lm-commerce .lm-catalog-empty-help{font-size:15px;color:#595959;margin:16px 0}
+.lm-commerce .lm-commerce-main a.lm-catalog-empty-reset{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid #161616;font-size:14px;color:#161616}
+.lm-commerce .lm-catalog-filters :is(a,select,button):focus-visible,.lm-commerce .lm-catalog-active a:focus-visible{outline:2px solid #161616;outline-offset:3px}
+@media(max-width:1000px){
+ .lm-commerce .lm-catalog-layout{display:block}.lm-commerce .lm-catalog-filters{margin-bottom:28px}
+ .lm-commerce .lm-catalog-mobile-tools{display:flex;align-items:center;margin-bottom:18px}
+ .lm-commerce .lm-catalog-mobile-tools .lm-catalog-open{background:#fff;color:#161616;border:1px solid #999;min-height:44px;padding:9px 18px}
+ .lm-catalog-enhanced .lm-catalog-filter-placeholder>.lm-catalog-filters{display:none}
+ .lm-commerce .lm-catalog-heading{gap:24px;grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+ .lm-commerce .lm-catalog-heading{grid-template-columns:1fr;gap:22px;margin-bottom:24px;padding-bottom:24px}
+ .lm-commerce .lm-catalog-heading h1{font-size:28px}.lm-commerce .lm-catalog-search{max-width:none}
+ .lm-commerce .lm-catalog-results ul.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}
+ .lm-commerce .lm-catalog-toolbar{align-items:flex-start;flex-wrap:wrap;gap:12px}
+ .lm-commerce .lm-catalog-results .woocommerce-ordering{width:100%}.lm-commerce .lm-catalog-results .woocommerce-ordering select{width:100%;max-width:100%}
+ .lm-commerce .lm-catalog-dialog-content{padding:20px}.lm-commerce .lm-catalog-dialog-content .lm-catalog-filters{margin:0}
+}
+
+html.lm-catalog-filter-open{overflow:hidden;scrollbar-gutter:stable}
+
+/* 覆盖父主题的目录承载面和手机隐藏计数，不给商品原图增加底色。 */
+.lm-commerce .lm-catalog-results .product :is(figure,.ct-media-container){background:transparent}
+.lm-commerce .lm-catalog-results .woo-listing-top{display:block;margin:0}
+.lm-commerce .lm-catalog-results .woocommerce-result-count{display:block!important;text-transform:none;letter-spacing:0}
+.lm-commerce .lm-catalog-open{display:none}
+@media(max-width:1000px){.lm-commerce .lm-catalog-toolbar .lm-catalog-open{display:inline-flex;background:#fff;color:#161616;border:1px solid #999;min-height:44px;padding:9px 18px}}
+@media(max-width:760px){
+ .lm-commerce .lm-catalog-toolbar{gap:12px;align-items:center}
+ .lm-commerce .lm-catalog-toolbar .woocommerce-result-count{order:2;flex-basis:100%}
+ .lm-commerce .lm-catalog-toolbar form.woocommerce-ordering{order:1;width:auto;flex:1;min-width:0;max-width:none}
+ .lm-commerce .lm-catalog-toolbar .woocommerce-ordering select{width:100%;max-width:100%;min-width:0}
+}
+
+.lm-commerce .lm-catalog-noscript-sort{display:flex;gap:16px;font-size:14px}.lm-commerce .lm-catalog-noscript-sort a{display:inline-flex;align-items:center;min-height:44px}
+
+.lm-commerce .lm-catalog-category-details{margin-bottom:24px}.lm-commerce .lm-catalog-category-details>summary{cursor:pointer;min-height:44px;display:list-item;font-size:15px;font-weight:500;line-height:1.5;padding:10px 0;color:#161616}.lm-commerce .lm-catalog-category-details .lm-catalog-categories{margin:8px 0 0}
+
+@media(max-width:1000px){.lm-commerce .lm-catalog-mobile-tools .lm-catalog-open{display:inline-flex}}
+
+.lm-pilot .lm-catalog-guide-link{font-size:14px;line-height:1.6;margin-top:12px;color:#555}.lm-pilot .lm-catalog-guide-link a{color:#333;text-underline-offset:4px}

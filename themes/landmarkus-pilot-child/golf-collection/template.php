@@ -4,6 +4,7 @@ $golf_page = lm_golf_collection_page();
 $golf_assets = get_stylesheet_directory_uri() . '/golf-collection/media/';
 $golf_uploads = trailingslashit(wp_get_upload_dir()['baseurl']) . '2026/05/';
 $golf_selection = lm_golf_collection_selection($golf_page->ID);
+$golf_gallery = lm_golf_collection_gallery_page($golf_page);
 $golf_show_price = lm_golf_collection_can_display_price();
 $golf_requires_login = !$golf_show_price && class_exists('LandmarkUS_Price_Access');
 $golf_term = get_term_by('slug', 'golf-belts', 'product_cat');
@@ -16,15 +17,82 @@ get_header();
 ?>
 <main id="main" class="lm-golf-collection">
     <section class="lm-golf-hero" aria-labelledby="lm-golf-title">
-        <img class="lm-golf-hero-image" src="<?php echo esc_url($golf_assets . 'course-swing-gb01-user-selected-follow-through.jpg'); ?>" width="1921" height="819"
-            fetchpriority="high" alt="Golfer finishing a drive with the club behind his shoulders, wearing the brown GB-01 belt">
+        <img class="lm-golf-hero-image" src="<?php echo esc_url($golf_assets . 'golf-hero-3.jpg'); ?>" width="3000" height="1688"
+            fetchpriority="high" alt="Golfer wearing a light woven belt at the end of his swing">
         <div class="lm-golf-wrap lm-golf-hero-copy">
             <p class="lm-golf-eyebrow">LandmarkUS Golf Collection</p>
             <h1 id="lm-golf-title">Wholesale<br>Golf Belts</h1>
             <p class="lm-golf-deck">Choose golf belts for your pro shop.</p>
             <p class="lm-golf-order-note">12 belts total · Mix styles · Priced per belt</p>
-            <a class="lm-golf-button" href="#golf-styles">Compare golf belt styles</a>
+            <a class="lm-golf-button" href="#golf-lineup">Browse featured golf belts</a>
         </div>
+    </section>
+
+    <section class="lm-golf-wrap lm-golf-lineup" id="golf-lineup" aria-labelledby="lm-golf-lineup-title">
+        <div class="lm-golf-section-head">
+            <h2 id="lm-golf-lineup-title">Featured Golf Belts</h2>
+            <?php if ($golf_gallery) : ?>
+                <a href="<?php echo esc_url(get_permalink($golf_gallery)); ?>">View All Colors</a>
+            <?php endif; ?>
+        </div>
+        <?php if ($golf_requires_login) : ?>
+            <p class="lm-golf-price-note">Browse styles and sizes before signing in. <a href="<?php echo esc_url(LandmarkUS_Price_Access::login_url(get_permalink($golf_page))); ?>">Log in for wholesale prices</a>.</p>
+        <?php endif; ?>
+        <div class="lm-golf-products">
+            <?php foreach ($golf_selection as $golf_row) :
+                $golf_belt = lm_golf_collection_product($golf_row['sku']);
+                if (!$golf_belt) continue;
+                $golf_name = lm_pilot_card_name($golf_belt);
+                $golf_colors = lm_golf_collection_colors($golf_belt);
+                $golf_default_color = reset($golf_colors);
+                foreach ($golf_colors as $golf_color) {
+                    if ((int) $golf_color['image_id'] === (int) $golf_belt->get_image_id()) {
+                        $golf_default_color = $golf_color;
+                        break;
+                    }
+                }
+                $golf_image_attrs = array('loading' => 'lazy', 'alt' => '', 'sizes' => '(max-width: 760px) 46vw, 31vw');
+                ?>
+                <article class="lm-golf-product">
+                    <a class="lm-golf-product-image" href="<?php echo esc_url($golf_belt->get_permalink()); ?>" aria-label="<?php echo esc_attr($golf_name); ?>">
+                        <?php echo $golf_default_color
+                            ? wp_get_attachment_image($golf_default_color['image_id'], 'woocommerce_single', false, $golf_image_attrs)
+                            : $golf_belt->get_image('woocommerce_single', $golf_image_attrs); ?>
+                    </a>
+                    <div class="lm-golf-product-info">
+                        <p class="lm-golf-sku"><?php echo esc_html($golf_belt->get_sku()); ?></p>
+                        <h3><a href="<?php echo esc_url($golf_belt->get_permalink()); ?>"><?php echo esc_html($golf_name); ?></a></h3>
+                        <?php if (count($golf_colors) > 1) : ?>
+                            <div class="lm-golf-colors" hidden>
+                                <p class="lm-golf-color-name" aria-live="polite"><?php echo esc_html($golf_default_color['name']); ?></p>
+                                <div class="lm-golf-swatches" role="group" aria-label="<?php echo esc_attr($golf_name . ' colors'); ?>">
+                                    <?php foreach ($golf_colors as $golf_color) : ?>
+                                        <button type="button" class="lm-golf-swatch"
+                                            aria-pressed="<?php echo $golf_color === $golf_default_color ? 'true' : 'false'; ?>"
+                                            aria-label="<?php echo esc_attr($golf_color['name']); ?>"
+                                            title="<?php echo esc_attr($golf_color['name']); ?>"
+                                            data-src="<?php echo esc_url($golf_color['src']); ?>"
+                                            data-srcset="<?php echo esc_attr($golf_color['srcset']); ?>">
+                                            <?php echo wp_get_attachment_image($golf_color['image_id'], 'woocommerce_gallery_thumbnail', false, array('alt' => '', 'loading' => 'lazy', 'sizes' => '34px')); ?>
+                                        </button>
+                                    <?php endforeach; ?>
+                                    <button type="button" class="lm-golf-swatch-toggle" aria-expanded="false"
+                                        aria-label="Show more colors" hidden>+</button>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($golf_show_price && $golf_row['price'] !== '') : ?>
+                            <p class="lm-golf-price"><?php echo wp_kses_post(wc_price($golf_row['price'], array('currency' => 'USD'))); ?> <span>/ belt</span></p>
+                        <?php elseif (!$golf_requires_login) : ?>
+                            <a class="lm-golf-price-link" href="<?php echo esc_url($golf_belt->get_permalink()); ?>">See product pricing</a>
+                        <?php endif; ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($golf_show_price && array_filter(array_column($golf_selection, 'price'), static function ($price) { return $price !== ''; })) : ?>
+            <p class="lm-golf-price-note">Collection display prices are per belt. See each product page for current ordering prices.</p>
+        <?php endif; ?>
     </section>
 
     <section class="lm-golf-style-band" id="golf-styles" aria-labelledby="lm-golf-styles-title">
@@ -96,40 +164,6 @@ get_header();
                 </div>
             </details>
         </div>
-    </section>
-
-    <section class="lm-golf-wrap lm-golf-lineup" id="golf-lineup" aria-labelledby="lm-golf-lineup-title">
-        <details class="lm-golf-disclosure lm-golf-featured">
-            <summary><h2 id="lm-golf-lineup-title">Browse featured golf belts</h2></summary>
-            <?php if ($golf_requires_login) : ?>
-                <p class="lm-golf-price-note">Browse styles and sizes before signing in. <a href="<?php echo esc_url(LandmarkUS_Price_Access::login_url(get_permalink($golf_page))); ?>">Log in for wholesale prices</a>.</p>
-            <?php endif; ?>
-            <div class="lm-golf-products">
-                <?php foreach ($golf_selection as $golf_row) :
-                    $golf_belt = lm_golf_collection_product($golf_row['sku']);
-                    if (!$golf_belt) continue;
-                    $golf_name = lm_pilot_card_name($golf_belt);
-                    ?>
-                    <article class="lm-golf-product">
-                        <a class="lm-golf-product-image" href="<?php echo esc_url($golf_belt->get_permalink()); ?>" aria-label="<?php echo esc_attr($golf_name); ?>">
-                            <?php echo $golf_belt->get_image('woocommerce_single', array('loading' => 'lazy', 'alt' => '', 'sizes' => '(max-width: 760px) 46vw, 31vw')); ?>
-                        </a>
-                        <div class="lm-golf-product-info">
-                            <p class="lm-golf-sku"><?php echo esc_html($golf_belt->get_sku()); ?></p>
-                            <h3><a href="<?php echo esc_url($golf_belt->get_permalink()); ?>"><?php echo esc_html($golf_name); ?></a></h3>
-                            <?php if ($golf_show_price && $golf_row['price'] !== '') : ?>
-                                <p class="lm-golf-price"><?php echo wp_kses_post(wc_price($golf_row['price'], array('currency' => 'USD'))); ?> <span>/ belt</span></p>
-                            <?php elseif (!$golf_requires_login) : ?>
-                                <a class="lm-golf-price-link" href="<?php echo esc_url($golf_belt->get_permalink()); ?>">See product pricing</a>
-                            <?php endif; ?>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-            <?php if ($golf_show_price && array_filter(array_column($golf_selection, 'price'), static function ($price) { return $price !== ''; })) : ?>
-                <p class="lm-golf-price-note">Collection display prices are per belt. See each product page for current ordering prices.</p>
-            <?php endif; ?>
-        </details>
     </section>
 
     <section class="lm-golf-wrap lm-golf-finish" aria-labelledby="lm-golf-finish-title">

@@ -7,9 +7,44 @@ function lm_golf_collection_page() {
         get_post_meta($page->ID, '_lm_golf_collection_owner', true) === 'PV02' ? $page : null;
 }
 
+function lm_golf_collection_gallery_page($hub) {
+    $page = get_page_by_path($hub->post_name . '/colors');
+    return $page && $page->post_status === 'publish' && (int) $page->post_parent === (int) $hub->ID &&
+        get_page_template_slug($page) === 'golf-collection/gallery-page.php' ? $page : null;
+}
+
 function lm_golf_collection_active() {
     $page = lm_golf_collection_page();
     return $page && is_page($page->ID) && function_exists('wc_get_product');
+}
+
+function lm_golf_collection_colors($product) {
+    if (!$product->is_type('variable')) return array();
+    $published_colors = array();
+    foreach ($product->get_children() as $id) {
+        if (get_post_status($id) !== 'publish') continue;
+        $color = wc_get_product_variation_attributes($id)['attribute_pa_color'] ?? '';
+        if ($color !== '') $published_colors[$color] = true;
+    }
+
+    $photos = lm_color_images($product);
+    $choices = array();
+    foreach ($product->get_variation_attributes()['pa_color'] ?? array() as $slug) {
+        if (!isset($published_colors[$slug], $photos[$slug])) continue;
+        $image_id = $photos[$slug];
+        $preview = wp_get_attachment_image_src($image_id, 'woocommerce_single');
+        if (!$preview) continue;
+        $name = html_entity_decode(lm_attribute_name('pa_color', $slug), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $name = preg_replace('/^(#\d+)\s*-\s*/', '$1 — ', $name);
+        $name = preg_replace('/\s*&\s*/', ' & ', $name);
+        $choices[] = array(
+            'image_id' => $image_id,
+            'name' => $name,
+            'src' => $preview[0],
+            'srcset' => wp_get_attachment_image_srcset($image_id, 'woocommerce_single') ?: '',
+        );
+    }
+    return $choices;
 }
 
 function lm_golf_collection_product($sku) {

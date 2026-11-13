@@ -11,6 +11,20 @@ function lm_catalog_params(){
  if(isset($_GET['orderby'])&&is_string($_GET['orderby']))$out['orderby']=sanitize_key(wp_unslash($_GET['orderby']));return $out;
 }
 function lm_catalog_base(){if(lm_catalog_global_search())return home_url('/');if(is_product_taxonomy()){$url=get_term_link(get_queried_object());if(!is_wp_error($url))return $url;}return wc_get_page_permalink('shop');}
+add_action('wp_head', static function () {
+ if (is_404() || is_singular() || is_search() || (!is_shop() && !is_product_category()) || !empty($_GET)) return;
+
+ $url = lm_catalog_base();
+ $page = (int) get_query_var('paged');
+ if ($page > 1) {
+  global $wp_rewrite;
+  $url = $wp_rewrite->using_permalinks()
+   ? user_trailingslashit(trailingslashit($url).$wp_rewrite->pagination_base.'/'.$page, 'paged')
+   : add_query_arg('paged', $page, $url);
+ }
+
+ printf("<link rel=\"canonical\" href=\"%s\" />\n", esc_url($url));
+});
 function lm_catalog_reset_url(){return lm_catalog_global_search()?wc_get_page_permalink('shop'):lm_catalog_base();}
 function lm_catalog_url($base=null,$changes=array()){
  $params=array_merge(lm_catalog_params(),$changes);

@@ -11,6 +11,60 @@ require_once __DIR__.'/custom.php';
 require_once __DIR__.'/factory.php';
 require_once __DIR__.'/trust-pages.php';
 require_once __DIR__.'/wholesale-hub.php';
+
+/** Consolidate the verified wholesale product category aliases. */
+add_action('template_redirect', static function () {
+ if (!is_tax('product_cat') || is_404() || !in_array($_SERVER['REQUEST_METHOD'] ?? '', array('GET', 'HEAD'), true)) return;
+ $uri = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? ''));
+ if (!is_array($uri) || empty($uri['path'])) return;
+
+ $aliases = array(
+  '/product-category/mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/',
+  '/product-category/dress-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/dress-belts-mens-belts-wholesale/',
+  '/product-category/casual-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/casual-belts-mens-belts-wholesale/',
+  '/product-category/outdoor-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/outdoor-belts-mens-belts-wholesale/',
+  '/product-category/reversible-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/reversible-belts-mens-belts-wholesale/',
+  '/product-category/ratchet-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/ratchet-belts-mens-belts-wholesale/',
+  '/product-category/stretch-belts-mens-belts-wholesale' => '/product-category/wholesale/mens-belts-wholesale/stretch-belts-mens-belts-wholesale/',
+  '/product-category/wholesale/full-grain-leather' => '/product-category/wholesale/mens-belts-wholesale/full-grain-leather/',
+ );
+ $path = untrailingslashit($uri['path']);
+ $page = (int) get_query_var('paged');
+ $path = preg_replace('~/page/[1-9][0-9]*$~D', '', $path);
+ if (!isset($aliases[$path])) return;
+
+ $term = get_queried_object();
+ $term_link = get_term_link($term);
+ if (is_wp_error($term_link) || wp_parse_url($term_link, PHP_URL_PATH) !== $aliases[$path]) return;
+
+ global $wp_rewrite;
+ $destination = $page > 1
+  ? user_trailingslashit(trailingslashit($term_link).$wp_rewrite->pagination_base.'/'.$page, 'paged')
+  : $term_link;
+ if (isset($uri['query']) && $uri['query'] !== '') {
+  $destination .= '?'.$uri['query'];
+  if ($page > 0) $destination = remove_query_arg('paged', $destination);
+ }
+
+ if (wp_safe_redirect($destination, 301, 'LandmarkUS')) exit;
+}, 9);
+
+$golf_collection = __DIR__.'/golf-collection';
+if (is_readable($golf_collection.'/collection.php') && is_readable($golf_collection.'/template.php')) {
+ require_once $golf_collection.'/collection.php';
+ add_filter('template_include', static function ($template) use ($golf_collection) {
+  return lm_golf_collection_active() ? $golf_collection.'/template.php' : $template;
+ }, 1100);
+ add_action('wp_enqueue_scripts', static function () use ($golf_collection) {
+  if (!lm_golf_collection_active()) return;
+  $url = get_stylesheet_directory_uri().'/golf-collection';
+  wp_enqueue_style('landmark-golf-collection', $url.'/golf.css',
+   array('landmark-shared-shell'), (string) filemtime($golf_collection.'/golf.css'));
+  wp_enqueue_script('landmark-golf-collection', $url.'/golf.js', array(),
+   (string) filemtime($golf_collection.'/golf.js'), true);
+ }, 135);
+}
+
 add_action('wp_enqueue_scripts',static function(){
  wp_dequeue_style('blocksy-fonts-font-source-google');
  wp_enqueue_style('landmark-pilot-fonts',get_stylesheet_directory_uri().'/font-faces.css',array(),(string)filemtime(get_stylesheet_directory().'/font-faces.css'));

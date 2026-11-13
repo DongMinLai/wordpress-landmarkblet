@@ -11,8 +11,45 @@ function lm_catalog_params(){
  if(isset($_GET['orderby'])&&is_string($_GET['orderby']))$out['orderby']=sanitize_key(wp_unslash($_GET['orderby']));return $out;
 }
 function lm_catalog_base(){if(lm_catalog_global_search())return home_url('/');if(is_product_taxonomy()){$url=get_term_link(get_queried_object());if(!is_wp_error($url))return $url;}return wc_get_page_permalink('shop');}
+function lm_catalog_has_result_parameters() {
+ foreach (array_keys($_GET) as $key) {
+  if (in_array($key, array('catalog_search', 'lm_skip', 'orderby', 'min_price', 'max_price', 'rating_filter', 'filtering'), true)
+   || str_starts_with((string) $key, 'filter_') || str_starts_with((string) $key, 'query_type_')) return true;
+ }
+ return false;
+}
+
+function lm_catalog_has_only_tracking_parameters() {
+ foreach (array_keys($_GET) as $key) {
+  if (!preg_match('/^utm_[a-z0-9_]+$/iD', (string) $key)
+   && !in_array(strtolower((string) $key), array('gclid', 'gbraid', 'wbraid', 'dclid', 'fbclid', 'msclkid', 'ttclid', 'srsltid'), true)) return false;
+ }
+ return true;
+}
+
+add_filter('wp_robots', static function ($robots) {
+ $catalog_variant = (is_shop() || is_product_taxonomy()) && lm_catalog_has_result_parameters();
+ if (is_search() || $catalog_variant || is_cart() || is_checkout() || is_account_page()) {
+  unset($robots['index']);
+  $robots['noindex'] = true;
+ }
+ return $robots;
+});
+
+add_filter('wp_sitemaps_posts_query_args', static function ($args, $post_type) {
+ if ($post_type !== 'page' || !function_exists('wc_get_page_id')) return $args;
+
+ $excluded = (array) ($args['post__not_in'] ?? array());
+ foreach (array('cart', 'checkout', 'myaccount') as $page) {
+  $id = wc_get_page_id($page);
+  if ($id > 0) $excluded[] = $id;
+ }
+ if ($excluded) $args['post__not_in'] = array_values(array_unique($excluded));
+ return $args;
+}, 10, 2);
+
 add_action('wp_head', static function () {
- if (is_404() || is_singular() || is_search() || (!is_shop() && !is_product_category()) || !empty($_GET)) return;
+ if (is_404() || is_singular() || is_search() || (!is_shop() && !is_product_category()) || !lm_catalog_has_only_tracking_parameters()) return;
 
  $url = lm_catalog_base();
  $page = (int) get_query_var('paged');

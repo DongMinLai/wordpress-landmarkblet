@@ -49,6 +49,22 @@ add_action('template_redirect', static function () {
  if (wp_safe_redirect($destination, 301, 'LandmarkUS')) exit;
 }, 9);
 
+$golf_collection = __DIR__.'/golf-collection';
+if (is_readable($golf_collection.'/collection.php') && is_readable($golf_collection.'/template.php')) {
+ require_once $golf_collection.'/collection.php';
+ add_filter('template_include', static function ($template) use ($golf_collection) {
+  return lm_golf_collection_active() ? $golf_collection.'/template.php' : $template;
+ }, 1100);
+ add_action('wp_enqueue_scripts', static function () use ($golf_collection) {
+  if (!lm_golf_collection_active()) return;
+  $url = get_stylesheet_directory_uri().'/golf-collection';
+  wp_enqueue_style('landmark-golf-collection', $url.'/golf.css',
+   array('landmark-shared-shell'), (string) filemtime($golf_collection.'/golf.css'));
+  wp_enqueue_script('landmark-golf-collection', $url.'/golf.js', array(),
+   (string) filemtime($golf_collection.'/golf.js'), true);
+ }, 135);
+}
+
 add_action('wp_enqueue_scripts',static function(){
  wp_dequeue_style('blocksy-fonts-font-source-google');
  wp_enqueue_style('landmark-pilot-fonts',get_stylesheet_directory_uri().'/font-faces.css',array(),(string)filemtime(get_stylesheet_directory().'/font-faces.css'));

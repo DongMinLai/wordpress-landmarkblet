@@ -1,6 +1,53 @@
 <?php
 /** 共用Shell：读取原站菜单/页脚来源，不写菜单、小工具或业务数据。 */
 defined('ABSPATH') || exit;
+
+/** 搜索摘要仅用于已确认的五个落地页。 */
+function lm_search_snippet() {
+ if (is_404() || is_search() || is_preview() || is_paged() || is_embed()) return null;
+
+ if (is_front_page()) {
+  return array(
+   'LandmarkUS | Wholesale Belt Supplier for Retailers',
+   'Source belts for your store with LandmarkUS. Explore wholesale styles, U.S. inventory, and custom or private label options for your business.',
+  );
+ }
+
+ if (!is_page()) return null;
+ $page = get_queried_object();
+ $root = home_url('/');
+ $snippets = array(
+  'wholesale-belts' => array(
+   'Wholesale Belts for Retailers & Resellers | LandmarkUS',
+   'Browse dress, casual, and other wholesale belt styles. Compare colors and sizes, plan a mixed-style order, and find options for your next restock.',
+  ),
+  'custom-belts' => array(
+   'Custom & Private Label Belts | LandmarkUS',
+   'Develop belts for your brand. Start with a sample, sketch, or existing style, then discuss materials, colors, buckles, and other design details.',
+  ),
+  'wholesale-buying-guide' => array(
+   'Wholesale Belt Buying Guide for Retailers | LandmarkUS',
+   'Learn how to order wholesale belts. Choose styles, colors, and sizes, review SKUs and quantities in your cart, and find answers about samples and returns.',
+  ),
+  'wholesale-golf-belts' => array(
+   'Wholesale Golf Belts for Retailers | LandmarkUS',
+   'Browse featured wholesale golf belts for your store. Compare styles and color options, then open individual products for sizes and ordering details.',
+  ),
+ );
+ return isset($snippets[$page->post_name]) && untrailingslashit(get_permalink($page)) === untrailingslashit($root.$page->post_name)
+  ? $snippets[$page->post_name] : null;
+}
+
+add_filter('document_title_parts', static function ($parts) {
+ $snippet = lm_search_snippet();
+ return $snippet ? array('title' => $snippet[0]) : $parts;
+});
+
+add_action('wp_head', static function () {
+ $snippet = lm_search_snippet();
+ if ($snippet) printf("<meta name=\"description\" content=\"%s\" />\n", esc_attr($snippet[1]));
+});
+
 function lm_shell_menu_items(){
  $locations=get_nav_menu_locations();
  $legacy=get_option('theme_mods_flatsome-child',array());

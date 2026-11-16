@@ -459,65 +459,9 @@
 }
 
 .lm-hub-carousel .lm-quick-view { min-height: 44px; }
-.lm-hub-swatches {
+.lm-hub-carousel .lm-hub-swatches {
   grid-area: 4 / 1 / 5 / -1;
   align-self: end;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-height: 32px;
-  margin: 0 0 4px;
-}
-.lm-hub-swatches[hidden] {
-  display: none;
-}
-.lm-hub-carousel .product:has(.lm-hub-swatches:not([hidden])) .lm-card-options {
-  display: none;
-}
-.lm-hub-carousel .lm-hub-swatch,
-.lm-hub-carousel .lm-hub-more-colors {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  min-width: 32px;
-  min-height: 32px;
-  border: 1px solid #ded7cf;
-  border-radius: 4px;
-  padding: 1px;
-  background: #fff;
-  color: #494139;
-  cursor: pointer;
-}
-.lm-hub-carousel .lm-hub-swatch[aria-pressed="true"],
-.lm-hub-carousel .lm-hub-swatch:hover {
-  border-color: #a33d24;
-}
-.lm-hub-swatches:not(:has(img)) :is(.lm-hub-swatch, .lm-hub-more-colors):not(:focus-visible) {
-  border-color: transparent;
-  background: transparent;
-  color: transparent;
-}
-.lm-pilot .lm-hub-products .lm-hub-swatch img {
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  object-fit: contain;
-}
-.lm-hub-main .lm-hub-carousel .lm-hub-more-colors {
-  padding-inline: 4px;
-  font-size: 12px;
-  text-decoration: none;
-}
-.lm-hub-main .lm-hub-carousel .lm-hub-more-colors:hover {
-  text-decoration: underline;
-}
-.lm-hub-carousel .product[data-lm-hub-color] figure .ct-swap {
-  opacity: 0 !important;
-}
-.lm-hub-carousel .product[data-lm-hub-color] figure .ct-swap + img {
-  opacity: 1 !important;
 }
 @media (max-width: 1100px) {
   .lm-hub-carousel-controls {

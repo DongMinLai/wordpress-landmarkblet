@@ -59,53 +59,6 @@ function lmInitHubCarousel(carousel) {
   viewport.addEventListener('scroll', scheduleUpdate, {passive: true});
   window.addEventListener('resize', scheduleUpdate, {passive: true});
   updateControls();
-
-  function loadSwatches(card) {
-    for (const button of card.querySelectorAll('.lm-hub-swatch')) {
-      if (button.firstElementChild) continue;
-      const image = new Image(24, 24);
-      image.alt = '';
-      image.decoding = 'async';
-      image.src = button.dataset.thumb;
-      button.append(image);
-    }
-  }
-
-  const swatchCards = cards.filter(card => card.querySelector('.lm-hub-swatches'));
-  const observer = 'IntersectionObserver' in window
-    ? new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.35) continue;
-        loadSwatches(entry.target.closest('.product'));
-        observer.unobserve(entry.target);
-      }
-    }, {threshold: 0.35})
-    : null;
-
-  for (const card of swatchCards) {
-    const row = card.querySelector('.lm-hub-swatches');
-    row.hidden = false;
-    observer?.observe(row);
-    card.addEventListener('focusin', () => loadSwatches(card), {once: true});
-    if (!observer) card.addEventListener('pointerenter', () => loadSwatches(card), {once: true});
-  }
-
-  carousel.addEventListener('click', event => {
-    const choice = event.target.closest('.lm-hub-swatch');
-    if (!choice) return;
-    const card = choice.closest('.product');
-    const image = card.querySelector('figure .ct-media-container img:not(.ct-swap)');
-    if (!image) return;
-
-    // Only the explicit color selection fetches the larger card image.
-    image.removeAttribute('srcset');
-    image.removeAttribute('sizes');
-    image.src = choice.dataset.preview;
-    card.dataset.lmHubColor = 'selected';
-    for (const button of card.querySelectorAll('.lm-hub-swatch')) {
-      button.setAttribute('aria-pressed', String(button === choice));
-    }
-  });
 }
 
 

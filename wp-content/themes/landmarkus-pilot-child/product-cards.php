@@ -3,6 +3,95 @@
 defined('ABSPATH') || exit;
 require_once __DIR__.'/product-options.php';
 
+function lm_card_swatch_grid_page() {
+ return is_front_page() || is_page('landmark-home-v1') ||
+  (function_exists('is_product_category') && is_product_category());
+}
+
+add_action('wp_enqueue_scripts', static function () {
+ if (!lm_card_swatch_grid_page() && !lm_wholesale_hub_page()) return;
+ $file = '/product-card-swatches.js';
+ wp_enqueue_script('landmark-product-card-swatches', get_stylesheet_directory_uri().$file,
+  array(), (string) filemtime(__DIR__.$file), true);
+});
+
+/** 产品卡先预热变体和附件，再复用商品详情页的颜色图片映射。 */
+function lm_card_prime_color_photos($products) {
+ $variation_ids = array();
+ $attachment_ids = array();
+ foreach ($products as $product) {
+  $variation_ids = array_merge($variation_ids, $product->get_children());
+  $attachment_ids = array_merge($attachment_ids, array($product->get_image_id()), $product->get_gallery_image_ids());
+ }
+ _prime_post_caches($variation_ids, false, true);
+ foreach ($variation_ids as $id) {
+  $attachment_ids[] = (int) get_post_meta($id, '_thumbnail_id', true);
+ }
+ _prime_post_caches(array_values(array_unique(array_filter($attachment_ids))), false, true);
+}
+
+function lm_card_color_photos($product) {
+ return lm_color_images($product, static function($id, $inherit) use ($product) {
+  $post = get_post($id);
+  if (!$post || $post->post_type !== 'product_variation' || (int) $post->post_parent !== $product->get_id()) {
+   return array('', 0);
+  }
+  $color = wc_get_product_variation_attributes($id)['attribute_pa_color'] ?? '';
+  $image = (int) get_post_meta($id, '_thumbnail_id', true);
+  return array($color, $inherit && !$image ? (int) $product->get_image_id() : $image);
+ });
+}
+
+function lm_card_color_swatches($product, $names = null) {
+ if (!$product->is_type('variable')) return;
+ $colors = array_values($product->get_variation_attributes()['pa_color'] ?? array());
+ if (!$colors) return;
+
+ if ($names === null) {
+  lm_card_prime_color_photos(array($product));
+  $names = array();
+  foreach (wc_get_product_terms($product->get_id(), 'pa_color', array('fields' => 'all')) as $term) {
+   $names[$term->slug] = $term->name;
+  }
+ }
+
+ $photos = lm_card_color_photos($product);
+ $primary = array_search((int) $product->get_image_id(), $photos, true);
+ if (is_string($primary) && in_array($primary, $colors, true)) {
+  $colors = array_merge(array($primary), array_diff($colors, array($primary)));
+ }
+
+ $choices = array();
+ foreach ($colors as $color) {
+  if (!isset($photos[$color])) continue;
+  $thumb = wp_get_attachment_image_src($photos[$color], 'woocommerce_gallery_thumbnail');
+  if (!$thumb || !$thumb[3] || max($thumb[1], $thumb[2]) > 100) continue;
+  $preview = wp_get_attachment_image_src($photos[$color], 'medium_large');
+  if (!$preview) continue;
+  $choices[] = array(
+   'name' => html_entity_decode($names[$color] ?? $color, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+   'thumb' => $thumb[0],
+   'preview' => $preview[0],
+   'primary' => $color === $primary,
+  );
+  if (count($choices) === 4) break;
+ }
+ if (!$choices) return;
+
+ echo '<div class="lm-hub-swatches" role="group" aria-label="Color previews" hidden>';
+ foreach ($choices as $choice) {
+  echo '<button type="button" class="lm-hub-swatch" aria-pressed="'.($choice['primary'] ? 'true' : 'false').'"';
+  echo ' aria-label="'.esc_attr($choice['name']).'" title="'.esc_attr($choice['name']).'"';
+  echo ' data-thumb="'.esc_url($choice['thumb']).'" data-preview="'.esc_url($choice['preview']).'">';
+  echo '</button>';
+ }
+ $remaining = count($colors) - count($choices);
+ if ($remaining > 0) {
+  echo '<a class="lm-hub-more-colors" href="'.esc_url($product->get_permalink()).'" aria-label="'.esc_attr(sprintf('See all %d colors', count($colors))).'">+'.esc_html($remaining).'</a>';
+ }
+ echo '</div>';
+}
+
 function lm_pilot_card_name($product) {
  $name=$product->get_name();$sku=$product->get_sku();
  return $sku ? preg_replace('/(?:\s*\|\s*|\s+)'.preg_quote($sku,'/').'\s*$/iu','',$name) : $name;
@@ -22,6 +111,7 @@ add_action('blocksy:woocommerce:product-card:custom:layer',static function($laye
   $count=count($options['Colors']);echo '<p class="lm-card-options">'.esc_html($count.' '.($count===1?'color':'colors')).'</p>';
  }
  echo '</div><h2 class="woocommerce-loop-product__title"><a href="'.esc_url($product->get_permalink()).'">'.esc_html(lm_pilot_card_name($product)).'</a></h2>';
+ if (lm_card_swatch_grid_page()) lm_card_color_swatches($product);
 });
 add_filter('woocommerce_loop_add_to_cart_link',static function($link,$product){
  return ''; // Human：卡片已可点击，不再增加重复详情动作。

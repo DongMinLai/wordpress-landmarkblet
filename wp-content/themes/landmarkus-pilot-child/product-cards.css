@@ -1,4 +1,4 @@
-/* 商品卡精修：更轻的目录布局、真实图库换图、触屏可达的快速查看。 */
+/* 商品卡精修：更轻的目录布局、真实图库换图、桌面快速查看。 */
 .lm-pilot .lm-products ul.products li.product{border:0;border-bottom:1px solid var(--lm-line);padding-bottom:16px;overflow:visible;background:transparent;box-shadow:none}
 .lm-pilot .lm-products .product figure{position:relative;isolation:auto;overflow:hidden}
 .lm-pilot .lm-products .product figure a{outline-offset:-4px}
@@ -20,7 +20,6 @@
  .lm-pilot .lm-products [data-hover="swap"]>.product:is(:hover,:focus-within) .ct-swap+img{opacity:0}
 }
 @media(hover:none),(pointer:coarse){
- .lm-pilot .lm-quick-view{opacity:1}
  .lm-pilot .lm-products .ct-swap{opacity:0!important}
  .lm-pilot .lm-products .ct-swap+img{opacity:1!important}
 }
@@ -29,8 +28,10 @@
  .lm-pilot .lm-products .product img{padding:5px}
  .lm-pilot .lm-products .lm-card-meta{gap:8px;margin-top:12px}
  .lm-pilot .lm-products .product .price{min-height:42px}
- .lm-pilot .lm-quick-view{opacity:1;bottom:8px;min-height:36px;padding:7px 10px;font-size:13px;gap:6px}
- .lm-pilot .lm-quick-view svg{width:16px;height:16px}
+}
+/* 窄屏与触屏通过商品图和标题进入详情。 */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .lm-pilot .lm-quick-view { display: none; }
 }
 /* 原生模态；字体与价格权限延续同一页面体系。 */
 html.lm-qv-open{overflow:hidden;scrollbar-gutter:stable}

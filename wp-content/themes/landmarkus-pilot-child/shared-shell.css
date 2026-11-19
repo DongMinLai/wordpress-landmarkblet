@@ -1,5 +1,35 @@
 /* 原站导航的Logo/六入口/框选态；页脚内容保留，重建清晰的阅读层级。 */
-.lm-ui-polished .lm-original-header{position:relative;z-index:30;background:#fff;border-bottom:1px solid #e6e6e6}
+/* Keep the shared navigation visible without taking it out of page flow. */
+:root:has(> body.lm-ui-polished > .lm-original-header) {
+  --lm-sticky-header-height: 84px;
+  --lm-sticky-admin-offset: 0px;
+  scroll-padding-block-start: calc(var(--lm-sticky-header-height) + var(--lm-sticky-admin-offset));
+}
+
+:root:has(> body.lm-ui-polished.admin-bar > .lm-original-header) {
+  --lm-sticky-admin-offset: var(--wp-admin--admin-bar--height, 32px);
+}
+
+@media (max-width: 760px) {
+  :root:has(> body.lm-ui-polished > .lm-original-header) {
+    --lm-sticky-header-height: 77px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* WordPress's toolbar scrolls away at this breakpoint. */
+  :root:has(> body.lm-ui-polished.admin-bar > .lm-original-header) {
+    --lm-sticky-admin-offset: 0px;
+  }
+}
+
+.lm-ui-polished .lm-original-header {
+  position: sticky;
+  inset-block-start: var(--lm-sticky-admin-offset, 0px);
+  z-index: 30;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+}
 .lm-ui-polished .lm-original-header .lm-header__inner{min-height:83px;gap:24px;position:relative}
 .lm-ui-polished .lm-original-header .lm-logo{flex:0 0 169px;line-height:0}
 .lm-ui-polished .lm-original-header .lm-logo img{width:169px;height:76px;object-fit:contain}
@@ -105,3 +135,11 @@ body:not(.lm-shell-js) .lm-original-header .lm-site-menu>li:is(:hover,:focus-wit
 @media(min-width:1280px){.lm-original-header .lm-desktop-search{display:flex}.lm-original-header .lm-site-search{display:none}}
 
 .lm-original-footer .lm-footer-bottom .lm-shell{display:flex;align-items:center;justify-content:space-between;gap:12px 28px;flex-wrap:wrap}.lm-original-footer .lm-footer-help a{display:inline-flex;align-items:center;min-height:40px;color:#333;font-size:13px;line-height:1.6;text-underline-offset:4px}
+
+/* Keep collapsed and desktop menus reachable on short screens. */
+.lm-ui-polished .lm-original-header .lm-mobile-menu > nav,
+.lm-ui-polished .lm-original-header .lm-nav .lm-site-menu > li > .lm-submenu {
+  max-height: min(75vh, 650px, calc(100dvh - var(--lm-sticky-header-height, 84px) - var(--lm-sticky-admin-offset, 0px) - 12px));
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}

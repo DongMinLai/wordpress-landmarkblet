@@ -129,6 +129,19 @@ add_action('woocommerce_after_variations_table', static function () {
 });
 
 add_action('woocommerce_single_product_summary',static function(){global $product;if($product&&class_exists('LandmarkUS_Wholesale_Order')&&LandmarkUS_Wholesale_Order::is_wholesale_belt($product))echo '<p class="lm-pdp-rule">12 belts per order. Mixed styles welcome. Prices are per belt.</p>';},25);
+
+add_action('woocommerce_single_product_summary', static function () {
+ global $product;
+ if (!$product || !class_exists('LandmarkUS_Wholesale_Order') || !LandmarkUS_Wholesale_Order::is_wholesale_belt($product)) return;
+ echo '<nav class="lm-pdp-policy-links" aria-label="Wholesale buying help">';
+ echo '<a href="'.esc_url(home_url('/shipping-policy/')).'">Shipping &amp; Delivery</a>';
+ echo '<span aria-hidden="true"> · </span>';
+ echo '<a href="'.esc_url(home_url('/refund_returns/')).'">Returns &amp; Cancellations</a>';
+ echo '<span aria-hidden="true"> · </span>';
+ echo '<a href="'.esc_url(home_url('/contact-us/#lm-name')).'">Ask About Samples</a>';
+ echo '</nav>';
+}, 32);
+
 add_action('woocommerce_after_add_to_cart_form', static function() {
  global $product;
  if (!$product || !class_exists('LandmarkUS_Wholesale_Order') ||

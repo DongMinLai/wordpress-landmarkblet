@@ -42,7 +42,10 @@ function lm_shell_footer_contact(){
  if(preg_match('/\[ux_text[^\]]*\](.*?)\[\/ux_text\]/s',$block->post_content,$match)){
   $html=wp_kses($match[1],array('p'=>array(),'br'=>array(),'strong'=>array(),'em'=>array(),'a'=>array('href'=>array())));
   // 原文本转换成可操作联系方式；显示文字、地址及TEXT口径不改。
-  $html=preg_replace_callback('/<p>([^<]+)<\/p>/',static function($m){$plain=trim(html_entity_decode($m[1],ENT_QUOTES,'UTF-8'));if(is_email($plain))return '<p><a href="'.esc_url('mailto:'.$plain).'">'.esc_html($plain).'</a></p>';if(preg_match('/^TEXT:(.*)$/u',$plain,$phone))return '<p><a href="'.esc_attr('sms:'.preg_replace('/[^+0-9]/','',$phone[1])).'">'.esc_html($plain).'</a></p>';return $m[0];},$html);
+  $html=preg_replace_callback('/<p>([^<]+)<\/p>/',static function($m){$plain=trim(html_entity_decode($m[1],ENT_QUOTES,'UTF-8'));if(is_email($plain)){
+  $email=strcasecmp($plain,'landmarkbelt@gmail.com')===0?'support@landmarkbelt.com':$plain;
+  return '<p><a href="'.esc_url('mailto:'.$email).'">'.esc_html($email).'</a></p>';
+ }if(preg_match('/^TEXT:(.*)$/u',$plain,$phone))return '<p><a href="'.esc_attr('sms:'.preg_replace('/[^+0-9]/','',$phone[1])).'">'.esc_html($plain).'</a></p>';return $m[0];},$html);
   echo $html; // 已按上方白名单过滤。
  }
  if(preg_match('/\[button\s+([^\]]*)\]/',$block->post_content,$button)){

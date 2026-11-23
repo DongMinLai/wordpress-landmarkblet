@@ -1,6 +1,53 @@
 <?php
 /** 共用Shell：读取原站菜单/页脚来源，不写菜单、小工具或业务数据。 */
 defined('ABSPATH') || exit;
+
+/** 搜索摘要仅用于已确认的五个落地页。 */
+function lm_search_snippet() {
+ if (is_404() || is_search() || is_preview() || is_paged() || is_embed()) return null;
+
+ if (is_front_page()) {
+  return array(
+   'LandmarkUS | Wholesale Belt Supplier for Retailers',
+   'Source belts for your store with LandmarkUS. Explore wholesale styles, U.S. inventory, and custom or private label options for your business.',
+  );
+ }
+
+ if (!is_page()) return null;
+ $page = get_queried_object();
+ $root = home_url('/');
+ $snippets = array(
+  'wholesale-belts' => array(
+   'Wholesale Belts for Retailers & Resellers | LandmarkUS',
+   'Browse dress, casual, and other wholesale belt styles. Compare colors and sizes, plan a mixed-style order, and find options for your next restock.',
+  ),
+  'custom-belts' => array(
+   'Custom & Private Label Belts | LandmarkUS',
+   'Develop belts for your brand. Start with a sample, sketch, or existing style, then discuss materials, colors, buckles, and other design details.',
+  ),
+  'wholesale-buying-guide' => array(
+   'Wholesale Belt Buying Guide for Retailers | LandmarkUS',
+   'Learn how to order wholesale belts. Choose styles, colors, and sizes, review SKUs and quantities in your cart, and find answers about samples and returns.',
+  ),
+  'wholesale-golf-belts' => array(
+   'Wholesale Golf Belts for Retailers | LandmarkUS',
+   'Browse featured wholesale golf belts for your store. Compare styles and color options, then open individual products for sizes and ordering details.',
+  ),
+ );
+ return isset($snippets[$page->post_name]) && untrailingslashit(get_permalink($page)) === untrailingslashit($root.$page->post_name)
+  ? $snippets[$page->post_name] : null;
+}
+
+add_filter('document_title_parts', static function ($parts) {
+ $snippet = lm_search_snippet();
+ return $snippet ? array('title' => $snippet[0]) : $parts;
+});
+
+add_action('wp_head', static function () {
+ $snippet = lm_search_snippet();
+ if ($snippet) printf("<meta name=\"description\" content=\"%s\" />\n", esc_attr($snippet[1]));
+});
+
 function lm_shell_menu_items(){
  $locations=get_nav_menu_locations();
  $legacy=get_option('theme_mods_flatsome-child',array());
@@ -42,7 +89,10 @@ function lm_shell_footer_contact(){
  if(preg_match('/\[ux_text[^\]]*\](.*?)\[\/ux_text\]/s',$block->post_content,$match)){
   $html=wp_kses($match[1],array('p'=>array(),'br'=>array(),'strong'=>array(),'em'=>array(),'a'=>array('href'=>array())));
   // 原文本转换成可操作联系方式；显示文字、地址及TEXT口径不改。
-  $html=preg_replace_callback('/<p>([^<]+)<\/p>/',static function($m){$plain=trim(html_entity_decode($m[1],ENT_QUOTES,'UTF-8'));if(is_email($plain))return '<p><a href="'.esc_url('mailto:'.$plain).'">'.esc_html($plain).'</a></p>';if(preg_match('/^TEXT:(.*)$/u',$plain,$phone))return '<p><a href="'.esc_attr('sms:'.preg_replace('/[^+0-9]/','',$phone[1])).'">'.esc_html($plain).'</a></p>';return $m[0];},$html);
+  $html=preg_replace_callback('/<p>([^<]+)<\/p>/',static function($m){$plain=trim(html_entity_decode($m[1],ENT_QUOTES,'UTF-8'));if(is_email($plain)){
+  $email=strcasecmp($plain,'landmarkbelt@gmail.com')===0?'support@landmarkbelt.com':$plain;
+  return '<p><a href="'.esc_url('mailto:'.$email).'">'.esc_html($email).'</a></p>';
+ }if(preg_match('/^TEXT:(.*)$/u',$plain,$phone))return '<p><a href="'.esc_attr('sms:'.preg_replace('/[^+0-9]/','',$phone[1])).'">'.esc_html($plain).'</a></p>';return $m[0];},$html);
   echo $html; // 已按上方白名单过滤。
  }
  if(preg_match('/\[button\s+([^\]]*)\]/',$block->post_content,$button)){

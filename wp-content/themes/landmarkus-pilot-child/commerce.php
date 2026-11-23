@@ -1,6 +1,7 @@
 <?php
 /** 原生WooCommerce页面的Landmark呈现与图片选项。 */
 defined('ABSPATH') || exit;
+require_once __DIR__.'/cart-matrix.php';
 function lm_commerce_page(){return function_exists('is_woocommerce')&&(is_woocommerce()||is_cart()||is_checkout()||is_account_page()||(is_search()&&get_query_var('post_type')==='product'));}
 add_action('after_setup_theme',static function(){
  remove_action('woocommerce_checkout_terms_and_conditions','wc_terms_and_conditions_page_content',30);
@@ -16,6 +17,19 @@ add_action('wp_enqueue_scripts',static function(){
  wp_enqueue_script('landmark-commerce',get_stylesheet_directory_uri().'/commerce.js',$deps,(string)filemtime(__DIR__.'/commerce.js'),true);
 },100);
 add_filter('template_include',static function($template){if(is_cart()||is_checkout()||is_account_page())return __DIR__.'/commerce-page.php';return $template;},999);
+
+add_action('woocommerce_after_cart_table', static function () {
+ if (!is_cart() || !is_callable(array('LandmarkUS_Wholesale_Order', 'clear_cart'))) return;
+ ?>
+ <details class="lm-cart-clear">
+  <summary><span class="lm-cart-clear-label">Clear cart</span><span class="lm-cart-clear-cancel">Cancel</span></summary>
+  <div class="lm-cart-clear-confirmation">
+   <p>Remove all items from your cart?</p>
+   <button type="submit" class="button" name="landmarkus_clear_cart" value="1" formnovalidate>Clear cart</button>
+  </div>
+ </details>
+ <?php
+});
 
 /** 定制目录中未配置价格的商品走询价入口。 */
 function lm_is_custom_quote_product($product) {
